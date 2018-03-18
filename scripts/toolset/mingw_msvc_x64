@@ -1,0 +1,16 @@
+#!/bin/sh
+#set -x
+. $( dirname "${BASH_SOURCE[0]}")/common
+
+PLATFORM=mingw
+COMPILER=msvc
+LIB_ARCH=x64
+FULLARCH=x86_64
+HOST_DEF=x86_64-w64-mingw32
+CROSS_PREFIX=
+
+export PATH="/mnt/c/Program Files (x86)/Microsoft Visual Studio 14.0/VC/bin/amd64:$PATH"
+
+
+
+
