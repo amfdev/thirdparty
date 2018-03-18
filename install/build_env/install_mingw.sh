@@ -10,20 +10,20 @@ LOG_FILE=$WORK_DIR/log.txt
 echo 'time' > $LOG_FILE
 
 BINUTILS_SRC=binutils-2.30
-MINGW_SRC=mingw-w64-v5.0.3
+MINGW_SRC=mingw-w64
 GCC_SRC=gcc-5.5.0
 
-rm -fR $BINUTILS_SRC
-rm -fR $MINGW_SRC
-rm -fR $GCC_SRC
+PREFIX=`readlink -f ${ROOT_DIR}/../../libs/mingw-w64`
+#PREFIX=/usr/mingw-w64
+sudo rm -fR $PREFIX
 
 wget  --timestamping http://ftp.heikorichter.name/gnu/gcc/${GCC_SRC}/${GCC_SRC}.tar.xz || exit 1
 wget  --timestamping http://ftp.heikorichter.name/gnu/binutils/${BINUTILS_SRC}.tar.xz || exit 1
-wget  --timestamping --no-check-certificate https://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/${MINGW_SRC}.tar.bz2/download -O ${MINGW_SRC}.tar.bz2 || exit 1
+#wget  --timestamping --no-check-certificate https://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/${MINGW_SRC}.tar.bz2/download -O ${MINGW_SRC}.tar.bz2 || exit 1
+git clone git://git.code.sf.net/p/mingw-w64/mingw-w64
 
 tar -xf ${GCC_SRC}.tar.xz
 tar -xf ${BINUTILS_SRC}.tar.xz
-tar -xf ${MINGW_SRC}.tar.bz2
 
 BUILD_BINUTIL=1
 BUILD_MINGW_HEADERS=1
@@ -31,15 +31,8 @@ BUILD_GCC=1
 BUILD_MINGW_CRT=1
 BUILD_GCC_FINAL=1
 
-BINUTILS_SRC=binutils-2.30
-MINGW_SRC=mingw-w64-v5.0.3
-GCC_SRC=gcc-5.5.0
 PROC_NUM=`nproc --all`
 
-
-PREFIX=/usr/mingw-w64
-
-sudo rm -fR $PREFIX
 
 for ARCH in x86_64 i686; do
     echo start $ARCH `date` >> $LOG_FILE
