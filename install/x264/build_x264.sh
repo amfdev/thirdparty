@@ -7,18 +7,21 @@ TOOLS_DIR=$ROOT_DIR/../../scripts
 . "${TOOLS_DIR}/toolset/$1"
 
 BUILD_DIR=$ROOT_DIR/_build-$1
-REDIST_DIR=`readlink -f $ROOT_DIR/../../libs/x264/$1`
+REDIST_DIR=$ROOT_DIR/../../libs/x264/$1
 SOURCE_DIR=$ROOT_DIR/x264
 
-rm -fR $BUILD_DIR
+
 rm -fR $REDIST_DIR
-mkdir -p $BUILD_DIR
 mkdir -p $REDIST_DIR
 mkdir -p $REDIST_DIR/bin
 mkdir -p $REDIST_DIR/include
 mkdir -p $REDIST_DIR/lib
 
-cd $BUILD_DIR
+rm -fR $BUILD_DIR
+REDIST_DIR=`readlink -f $REDIST_DIR`
+
+mkdir -p $BUILD_DIR && cd $BUILD_DIR || exit 1
+
 
 if [ "$COMPILER" == "msvc" ]
 then
@@ -57,4 +60,5 @@ else
 fi
 
 rm -fR $BUILD_DIR
+
 
