@@ -3,17 +3,17 @@
 set -x
 
 ROOT_DIR=$PWD
+
+[ -z "$PREFIX" ] && PREFIX=`readlink -f ${ROOT_DIR}/../../libs/mingw-w64`
+[ ! -d "${PREFIX}" ] && echo PREFIX is not set due missing folder && exit 1
+
 WORK_DIR=$ROOT_DIR/_build_mingw-gdb
 BUILD_GDB=1
 mkdir -p ${WORK_DIR} && cd ${WORK_DIR} || exit 1
 
-LOG_FILE=$WORK_DIR/log.txt
-echo 'time' > $LOG_FILE
+[ -z "$LOG_FILE" ] && LOG_FILE=$WORK_DIR/log.txt && echo 'time' > $LOG_FILE
 
 GDB_SRC=gdb-8.1
-
-PREFIX=`readlink -f ${ROOT_DIR}/../../libs/mingw-w64`
-
 wget  --timestamping http://ftp.heikorichter.name/gnu/gdb/${GDB_SRC}.tar.xz || exit 1
 
 [ ! -d "${GDB_SRC}" ] && tar -xf ${GDB_SRC}.tar.xz

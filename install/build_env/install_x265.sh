@@ -4,7 +4,7 @@ set -x
 
 ROOT_DIR=$PWD
 
-PREFIX=`readlink -f ${ROOT_DIR}/../../libs/mingw-w64`
+[ -z "$PREFIX" ] && PREFIX=`readlink -f ${ROOT_DIR}/../../libs/mingw-w64`
 [ ! -d "${PREFIX}" ] && echo PREFIX is not set due missing folder && exit 1
 
 CURRENT_PATH=$PATH
@@ -14,8 +14,7 @@ PROC_NUM=`nproc --all`
 WORK_DIR=$ROOT_DIR/_build_mingw-x265
 mkdir -p ${WORK_DIR} && cd ${WORK_DIR} || exit 1
 
-LOG_FILE=$WORK_DIR/log.txt
-echo 'time' > $LOG_FILE
+[ -z "$LOG_FILE" ] && LOG_FILE=$WORK_DIR/log.txt && echo 'time' > $LOG_FILE
 
 SOURCE_DIR=${WORK_DIR}/x265
 rm -fR ${SOURCE_DIR}
@@ -44,8 +43,9 @@ for ARCH in x86_64 i686; do
                 -DCMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS="-static-libgcc -static-libstdc++" \
                 -DCMAKE_INSTALL_PREFIX="$ARCH_DIR/$TARGET" \
                 -DENABLE_SHARED=OFF \
+                -DENABLE_CLI=OFF\
                 ${SOURCE_DIR}/source
-    make -j${NPROC}
+    make -j${PROC_NUM}
     make install
 
     echo end $ARCH `date` >> $LOG_FILE

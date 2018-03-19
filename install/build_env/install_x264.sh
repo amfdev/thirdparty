@@ -4,7 +4,7 @@ set -x
 
 ROOT_DIR=$PWD
 
-PREFIX=`readlink -f ${ROOT_DIR}/../../libs/mingw-w64`
+[ -z "$PREFIX" ] && PREFIX=`readlink -f ${ROOT_DIR}/../../libs/mingw-w64`
 [ ! -d "${PREFIX}" ] && echo PREFIX is not set due missing folder && exit 1
 
 CURRENT_PATH=$PATH
@@ -14,8 +14,7 @@ PROC_NUM=`nproc --all`
 WORK_DIR=$ROOT_DIR/_build_mingw-x264
 mkdir -p ${WORK_DIR} && cd ${WORK_DIR} || exit 1
 
-LOG_FILE=$WORK_DIR/log.txt
-echo 'time' > $LOG_FILE
+[ -z "$LOG_FILE" ] && LOG_FILE=$WORK_DIR/log.txt && echo 'time' > $LOG_FILE
 
 SOURCE_DIR=${WORK_DIR}/x264
 rm -fR ${SOURCE_DIR}
