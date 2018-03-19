@@ -4,7 +4,7 @@ set -x
 
 ROOT_DIR=$PWD
 WORK_DIR=$ROOT_DIR/_build_mingw-gdb
-
+BUILD_GDB=1
 mkdir -p ${WORK_DIR} && cd ${WORK_DIR} || exit 1
 
 LOG_FILE=$WORK_DIR/log.txt
@@ -37,7 +37,7 @@ for ARCH in x86_64 i686; do
         rm -fR build-gdb-${ARCH}
         mkdir -p build-gdb-${ARCH} && cd build-gdb-${ARCH} || exit 1
         ../configure --target=${TARGET} --prefix=${ARCH_DIR} --disable-multilib ${SYSTROOT} || exit 1
-        make -j${PROC_NUM} && sudo make install || exit 1
+        make -j${PROC_NUM} && make install || exit 1
         cd ${WORK_DIR}
     fi
 
@@ -47,8 +47,8 @@ for ARCH in x86_64 i686; do
     rm -fR build-gdbserver-${ARCH}
     mkdir -p build-gdbserver-${ARCH} && cd build-gdbserver-${ARCH} || exit 1
     export LDFLAGS="-static-libgcc -static-libstdc++"
-    ../gdb/gdbserver/configure --host=${TARGET} --prefix=${ARCH_DIR} --program-prefix=${TARGET}- || exit 1
-    make -j${PROC_NUM} && sudo make install || exit 1
+    ../gdb/gdbserver/configure --host=${TARGET} --prefix=${ARCH_DIR}/$TARGET || exit 1
+    make -j${PROC_NUM} && make install || exit 1
     cd ${WORK_DIR}
 
     echo end $ARCH `date` >> $LOG_FILE

@@ -3,7 +3,12 @@
 set -x
 
 ROOT_DIR=$PWD
+
+CURRENT_PATH=$PATH
+
+
 WORK_DIR=$ROOT_DIR/_build_mingw
+rm -fR ${WORK_DIR}
 mkdir -p ${WORK_DIR} && cd ${WORK_DIR} || exit 1
 
 LOG_FILE=$WORK_DIR/log.txt
@@ -13,13 +18,14 @@ BINUTILS_SRC=binutils-2.30
 MINGW_SRC=mingw-w64
 GCC_SRC=gcc-5.5.0
 
-PREFIX=`readlink -f ${ROOT_DIR}/../../libs/mingw-w64`
 #PREFIX=/usr/mingw-w64
-sudo rm -fR $PREFIX
+PREFIX=${ROOT_DIR}/../../libs/mingw-w64
+$SUDO_OPT rm -fR $PREFIX
+mkdir -p $PREFIX
+PREFIX=`readlink -f ${PREFIX}`
 
 wget  --timestamping http://ftp.heikorichter.name/gnu/gcc/${GCC_SRC}/${GCC_SRC}.tar.xz || exit 1
 wget  --timestamping http://ftp.heikorichter.name/gnu/binutils/${BINUTILS_SRC}.tar.xz || exit 1
-#wget  --timestamping --no-check-certificate https://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/${MINGW_SRC}.tar.bz2/download -O ${MINGW_SRC}.tar.bz2 || exit 1
 git clone git://git.code.sf.net/p/mingw-w64/mingw-w64
 
 tar -xf ${GCC_SRC}.tar.xz
@@ -33,6 +39,7 @@ BUILD_GCC_FINAL=1
 
 PROC_NUM=`nproc --all`
 
+zSUDO_OPT=sudo
 
 for ARCH in x86_64 i686; do
     echo start $ARCH `date` >> $LOG_FILE
@@ -52,7 +59,7 @@ for ARCH in x86_64 i686; do
         mkdir -p build-${ARCH} && cd build-${ARCH} || exit 1
         ../configure --target=${TARGET} --prefix=${ARCH_DIR} --disable-multilib ${SYSTROOT} || exit 1
         make -j${PROC_NUM} || exit 1
-        sudo make install || exit 1
+        $SUDO_OPT make install || exit 1
         cd ${WORK_DIR}
 
         export PATH="$PATH:${ARCH_DIR}/bin"
@@ -65,9 +72,9 @@ for ARCH in x86_64 i686; do
         mkdir -p build-${ARCH} && cd build-${ARCH} || exit 1
         ../configure --host=${TARGET} --prefix=${ARCH_DIR}/${TARGET} || exit 1
         make || exit 1
-        sudo make install || exit 1
-        sudo ln -s ${ARCH_DIR}/${TARGET} ${ARCH_DIR}/mingw || exit 1
-        sudo mkdir -p ${ARCH_DIR}/${TARGET}/lib || exit 1
+        $SUDO_OPT make install || exit 1
+        $SUDO_OPT ln -s ${ARCH_DIR}/${TARGET} ${ARCH_DIR}/mingw || exit 1
+        $SUDO_OPT mkdir -p ${ARCH_DIR}/${TARGET}/lib || exit 1
         cd ${WORK_DIR}
     fi
 
@@ -81,9 +88,12 @@ for ARCH in x86_64 i686; do
 
         ../configure --target=${TARGET} --prefix=${ARCH_DIR} --disable-multilib ${SYSTROOT} || exit 1
         make all-gcc -j${PROC_NUM} || exit 1
-        sudo make install-gcc || exit 1
+        $SUDO_OPT make install-gcc || exit 1
         cd ${WORK_DIR}
     fi
+
+    export PATH="${ARCH_DIR}/bin:$CURRENT_PATH"
+
 
     if [ "$BUILD_MINGW_CRT" == "1" ]; then
         cd ${MINGW_SRC}/mingw-w64-crt
@@ -95,8 +105,9 @@ for ARCH in x86_64 i686; do
 
         ../configure --host=${TARGET} --prefix=${ARCH_DIR}/${TARGET} ${SYSTROOT} $ADD_ARG $TOOLS
         make -j${PROC_NUM} || exit 1
-        sudo bash -c "PATH=\$PATH:${ARCH_DIR}/bin && env && make install" || exit 1
-
+        [ ! -z "$SUDO_OPT" ] && $SUDO_OPT bash -c "PATH=\$PATH:${ARCH_DIR}/bin && env && make install"
+        [ -z "$SUDO_OPT" ] && make install
+        #$? || exit 1
         cd ${WORK_DIR}
     fi
 
@@ -104,7 +115,7 @@ for ARCH in x86_64 i686; do
         cd ${GCC_SRC}/build-${ARCH} || exit 1
 
         make -j${PROC_NUM} || exit 1
-        sudo make install || exit 1
+        $SUDO_OPT make install || exit 1
         cd ${WORK_DIR}
     fi
 
