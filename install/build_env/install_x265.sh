@@ -40,9 +40,12 @@ for ARCH in x86_64 i686; do
                 -DCMAKE_SYSTEM_NAME=Windows \
                 -DCMAKE_C_COMPILER=${TARGET}-gcc \
                 -DCMAKE_RC_COMPILER=${TARGET}-windres \
-                -DCMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS="-static-libgcc -static-libstdc++" \
+                -DCMAKE_MODULE_LINKER_FLAGS="-static-libgcc -static-libstdc++" \
+                -DCMAKE_CXX_FLAGS="-static-libgcc -static-libstdc++" \
+                -DCMAKE_C_FLAGS="-static-libgcc -static-libstdc++" \
                 -DCMAKE_INSTALL_PREFIX="$ARCH_DIR/$TARGET" \
-                -DENABLE_SHARED=OFF \
+                -DENABLE_STATIC=ON \
+                -DENABLE_SHARED=ON \
                 -DENABLE_CLI=OFF\
                 ${SOURCE_DIR}/source
     make -j${PROC_NUM}

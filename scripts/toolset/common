@@ -5,5 +5,7 @@
 TOOLSET=`basename "$0"`
 TOOLSET_DIR=$( dirname "${BASH_SOURCE[0]}")
 
+PREFIX=$TOOLSET_DIR/../../libs/mingw-w64
+
 export PATH="$TOOLSET_DIR:$PATH"
 export NPROC=`nproc --all`

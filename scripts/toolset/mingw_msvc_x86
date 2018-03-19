@@ -4,10 +4,11 @@
 
 PLATFORM=mingw
 COMPILER=msvc
-LIB_ARCH=x86
-FULLARCH=x86_32
-HOST_DEF=i686-w64-mingw32
-CROSS_PREFIX=
 
+ARCH=i686
+ARCH_DIR=${PREFIX}/toolchain-${ARCH}
+TARGET=${ARCH}-w64-mingw32
+
+export PKG_CONFIG_PATH=${ARCH_DIR}/${TARGET}/lib/pkgconfig:${PKG_CONFIG_PATH}
 export PATH="/mnt/c/Program Files (x86)/Microsoft Visual Studio 14.0/VC/bin:$PATH"
 
