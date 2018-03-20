@@ -2,13 +2,13 @@
 
 set -x
 
-#sudo install_deps.sh
-#./install_nasm.sh
+sudo install_deps.sh
+./install_nasm.sh
 
 ROOT_DIR=$PWD
 
 if [ -z "$PREFIX" ]; then
-    PREFIX=${ROOT_DIR}/mingw-w64
+    PREFIX=${ROOT_DIR}/../../libs/mingw-w64
     rm -fR $PREFIX
     mkdir -p $PREFIX
     PREFIX=`readlink -f ${PREFIX}`
