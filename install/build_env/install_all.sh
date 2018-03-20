@@ -6,6 +6,7 @@ ROOT_DIR=$PWD
 
 . "$ROOT_DIR/../../scripts/toolset/common" || exit 1
 
+rm -fR _build*
 
 ./install_deps.sh
 ./install_nasm.sh
@@ -18,7 +19,6 @@ if [ -z "$PREFIX" ]; then
     PREFIX=`readlink -f ${PREFIX}`
 fi
 
-rm -fR _build*
 
 [ -z "$LOG_FILE" ] && LOG_FILE=$ROOT_DIR/log.txt && echo 'time' `date` > $LOG_FILE
 
