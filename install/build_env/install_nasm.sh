@@ -9,13 +9,13 @@ WORK_DIR=$ROOT_DIR/_build_nasm
 mkdir -p ${WORK_DIR} && cd ${WORK_DIR} || exit 1
 
 #wget --timestamping http://www.nasm.us/pub/nasm/releasebuilds/${NASM_VER}/nasm-${NASM_VER}.tar.xz
-curl http://www.nasm.us/pub/nasm/releasebuilds/${NASM_VER}/nasm-${NASM_VER}.tar.xz --output ./nasm.tar.xz
+curl http://www.nasm.us/pub/nasm/releasebuilds/${NASM_VER}/nasm-${NASM_VER}.tar.xz --output ./nasm-${NASM_VER}.tar.xz
 
-rm -fR nasm
+rm -fR nasm-${NASM_VER}
 
-tar -xvf nasm.tar.xz
+tar -xvf nasm-${NASM_VER}.tar.xz
 
-cd nasm/
+cd nasm-${NASM_VER}
 
 ./configure && make && sudo make install
 
