@@ -26,8 +26,8 @@ fi
 #wget  --timestamping --no-check-certificate http://ftp.heikorichter.name/gnu/gcc/${GCC_SRC}/${GCC_SRC}.tar.xz || exit 1
 #wget  --timestamping --no-check-certificate http://ftp.heikorichter.name/gnu/binutils/${BINUTILS_SRC}.tar.xz || exit 1
 
-curl http://ftp.heikorichter.name/gnu/gcc/${GCC_SRC}/${GCC_SRC}.tar.xz --output ./${GCC_SRC}.tar.xz
-curl http://ftp.heikorichter.name/gnu/binutils/${BINUTILS_SRC}.tar.xz --output ./${BINUTILS_SRC}.tar.xz
+curl https://ftp.heikorichter.name/gnu/gcc/${GCC_SRC}/${GCC_SRC}.tar.xz --output ./${GCC_SRC}.tar.xz
+curl https://ftp.heikorichter.name/gnu/binutils/${BINUTILS_SRC}.tar.xz --output ./${BINUTILS_SRC}.tar.xz
 
 #git clone git://git.code.sf.net/p/mingw-w64/mingw-w64
 git clone https://github.com/amfdev/mingw-w64.git

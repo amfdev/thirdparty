@@ -16,7 +16,7 @@ mkdir -p ${WORK_DIR} && cd ${WORK_DIR} || exit 1
 GDB_SRC=gdb-8.1
 
 #wget  --timestamping --no-check-certificate http://ftp.heikorichter.name/gnu/gdb/${GDB_SRC}.tar.xz || exit 1
-curl http://ftp.heikorichter.name/gnu/gdb/${GDB_SRC}.tar.xz --output ./${GDB_SRC}.tar.xz
+curl https://ftp.heikorichter.name/gnu/gdb/${GDB_SRC}.tar.xz --output ./${GDB_SRC}.tar.xz
 
 
 [ ! -d "${GDB_SRC}" ] && tar -xf ${GDB_SRC}.tar.xz
