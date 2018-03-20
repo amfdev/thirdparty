@@ -10,6 +10,8 @@ echo 'start time' `date` > $LOG_FILE
 
 rm -fR _build*
 
+chmod +x $ROOT_DIR/../../scripts/time.sh
+chmod +x ./*.sh
 
 time.sh ./install_deps.sh
 time.sh ./install_nasm.sh
