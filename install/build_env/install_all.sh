@@ -1,7 +1,9 @@
 #!/bin/bash
 
-#sudo install_deps.sh
 set -x
+
+#sudo install_deps.sh
+#./install_nasm.sh
 
 ROOT_DIR=$PWD
 
@@ -22,7 +24,6 @@ export LOG_FILE
 
 ./install_mingw.sh
 ./install_mingw-gdb.sh
-#./install_nasm.sh
 ./install_sdl2.sh
 ./install_x264.sh
 ./install_x265.sh

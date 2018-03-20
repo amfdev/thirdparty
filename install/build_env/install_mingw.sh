@@ -25,7 +25,8 @@ fi
 
 wget  --timestamping http://ftp.heikorichter.name/gnu/gcc/${GCC_SRC}/${GCC_SRC}.tar.xz || exit 1
 wget  --timestamping http://ftp.heikorichter.name/gnu/binutils/${BINUTILS_SRC}.tar.xz || exit 1
-git clone git://git.code.sf.net/p/mingw-w64/mingw-w64
+#git clone git://git.code.sf.net/p/mingw-w64/mingw-w64
+git clone https://github.com/amfdev/mingw-w64.git
 
 tar -xf ${GCC_SRC}.tar.xz
 tar -xf ${BINUTILS_SRC}.tar.xz
