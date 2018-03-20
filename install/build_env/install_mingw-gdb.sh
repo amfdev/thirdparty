@@ -14,7 +14,7 @@ mkdir -p ${WORK_DIR} && cd ${WORK_DIR} || exit 1
 [ -z "$LOG_FILE" ] && LOG_FILE=$WORK_DIR/log.txt && echo 'time' > $LOG_FILE
 
 GDB_SRC=gdb-8.1
-wget  --timestamping http://ftp.heikorichter.name/gnu/gdb/${GDB_SRC}.tar.xz || exit 1
+wget  --timestamping --no-check-certificate http://ftp.heikorichter.name/gnu/gdb/${GDB_SRC}.tar.xz || exit 1
 
 [ ! -d "${GDB_SRC}" ] && tar -xf ${GDB_SRC}.tar.xz
 

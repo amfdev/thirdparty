@@ -7,7 +7,7 @@ ROOT_DIR=$PWD
 . "$ROOT_DIR/../../scripts/toolset/common" || exit 1
 
 
-sudo install_deps.sh
+./install_deps.sh
 ./install_nasm.sh
 
 
