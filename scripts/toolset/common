@@ -5,9 +5,10 @@
 TOOLSET=`basename "$0"`
 TOOLSET_DIR=$( dirname "${BASH_SOURCE[0]}")
 
-PREFIX=$TOOLSET_DIR/../../libs/mingw-w64
+PREFIX=/usr/local/mingw-w64
 
-export PATH="$TOOLSET_DIR/..:$PATH"
+
+export PATH="$TOOLSET_DIR:$PATH"
 export NPROC=`nproc --all`
 
 [ -z "$LOG_FILE" ] && LOG_FILE=$PWD/log.txt && export LOG_FILE
