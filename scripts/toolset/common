@@ -5,7 +5,7 @@
 TOOLSET=`basename "$0"`
 TOOLSET_DIR=$( dirname "${BASH_SOURCE[0]}")
 
-PREFIX=/usr/local/mingw-w64
+export MINGW_DIR=/usr/local/mingw-w64
 
 
 export PATH="$TOOLSET_DIR/..:$PATH"

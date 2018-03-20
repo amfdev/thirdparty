@@ -6,7 +6,7 @@ PLATFORM=mingw
 COMPILER=msvc
 
 ARCH=i686
-ARCH_DIR=${PREFIX}/toolchain-${ARCH}
+ARCH_DIR=${MINGW_DIR}/toolchain-${ARCH}
 TARGET=${ARCH}-w64-mingw32
 
 export PKG_CONFIG_PATH=${ARCH_DIR}/${TARGET}/lib/pkgconfig:${PKG_CONFIG_PATH}

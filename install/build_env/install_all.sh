@@ -15,14 +15,14 @@ time.sh ./install_deps.sh
 time.sh ./install_nasm.sh
 
 
-if [ -z "$PREFIX" ]; then
-    PREFIX=${ROOT_DIR}/mingw-w64
-    rm -fR $PREFIX
-    mkdir -p $PREFIX
-    PREFIX=`readlink -f ${PREFIX}`
+if [ -z "$MINGW_DIR" ]; then
+    MINGW_DIR=${ROOT_DIR}/mingw-w64
+    rm -fR $MINGW_DIR
+    mkdir -p $MINGW_DIR
+    MINGW_DIR=`readlink -f ${MINGW_DIR}`
 fi
 
-
+export MINGW_DIR
 
 
 

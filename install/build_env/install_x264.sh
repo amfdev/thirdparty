@@ -4,8 +4,8 @@ set -x
 
 ROOT_DIR=$PWD
 
-[ -z "$PREFIX" ] && PREFIX=`readlink -f ${ROOT_DIR}/../../libs/mingw-w64`
-[ ! -d "${PREFIX}" ] && echo PREFIX is not set due missing folder && exit 1
+[ -z "$MINGW_DIR" ] && MINGW_DIR=`readlink -f ${ROOT_DIR}/../../libs/mingw-w64`
+[ ! -d "${MINGW_DIR}" ] && echo MINGW_DIR is not set due missing folder && exit 1
 
 CURRENT_PATH=$PATH
 
@@ -25,7 +25,7 @@ git clone https://github.com/amfdev/x264.git ${SOURCE_DIR}
 for ARCH in x86_64 i686; do
     echo start $ARCH `date` >> $LOG_FILE
 
-    ARCH_DIR=${PREFIX}/toolchain-${ARCH}
+    ARCH_DIR=${MINGW_DIR}/toolchain-${ARCH}
     TARGET=${ARCH}-w64-mingw32
     #REDIST_DIR=$ROOT_DIR/../../libs/x264/$TARGET
     BUILD_DIR=${WORK_DIR}/build-${ARCH}

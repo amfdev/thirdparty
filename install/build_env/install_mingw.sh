@@ -16,11 +16,11 @@ BINUTILS_SRC=binutils-2.30
 MINGW_SRC=mingw-w64
 GCC_SRC=gcc-5.5.0
 
-if [ -z "$PREFIX" ]; then
-    PREFIX=${ROOT_DIR}/../../libs/mingw-w64
-    rm -fR $PREFIX
-    mkdir -p $PREFIX
-    PREFIX=`readlink -f ${PREFIX}`
+if [ -z "$MINGW_DIR" ]; then
+    MINGW_DIR=${ROOT_DIR}/../../libs/mingw-w64
+    rm -fR $MINGW_DIR
+    mkdir -p $MINGW_DIR
+    MINGW_DIR=`readlink -f ${MINGW_DIR}`
 fi
 
 wget  --timestamping --no-check-certificate http://ftp.heikorichter.name/gnu/gcc/${GCC_SRC}/${GCC_SRC}.tar.xz || exit 1
@@ -42,7 +42,7 @@ PROC_NUM=`nproc --all`
 for ARCH in x86_64 i686; do
     echo start $ARCH `date` >> $LOG_FILE
 
-    ARCH_DIR=${PREFIX}/toolchain-${ARCH}
+    ARCH_DIR=${MINGW_DIR}/toolchain-${ARCH}
     TARGET=${ARCH}-w64-mingw32
     SYSTROOT="--with-sysroot=${ARCH_DIR}"
     SYSTROOTEX="--with-sysroot=${ARCH_DIR}/${TARGET}"
