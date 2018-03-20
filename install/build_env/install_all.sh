@@ -6,10 +6,13 @@ ROOT_DIR=$PWD
 
 . "$ROOT_DIR/../../scripts/toolset/common" || exit 1
 
+echo 'start time' `date` > $LOG_FILE
+
 rm -fR _build*
 
-./install_deps.sh
-./install_nasm.sh
+
+time.sh ./install_deps.sh
+time.sh ./install_nasm.sh
 
 
 if [ -z "$PREFIX" ]; then
@@ -20,16 +23,13 @@ if [ -z "$PREFIX" ]; then
 fi
 
 
-[ -z "$LOG_FILE" ] && LOG_FILE=$ROOT_DIR/log.txt && echo 'time' `date` > $LOG_FILE
 
 
-export PREFIX
-export LOG_FILE
 
-./install_mingw.sh
-./install_mingw-gdb.sh
-./install_sdl2.sh
-./install_x264.sh
-./install_x265.sh
+time.sh ./install_mingw.sh
+time.sh ./install_mingw-gdb.sh
+time.sh ./install_sdl2.sh
+time.sh ./install_x264.sh
+time.sh ./install_x265.sh
 
-echo 'time' `date` >> $LOG_FILE
+echo 'end time' `date` >> $LOG_FILE
