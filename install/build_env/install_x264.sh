@@ -4,7 +4,7 @@ set -x
 
 ROOT_DIR=$PWD
 
-if [ -f $ROOT_DIR/../../scripts/toolset/common ]; 
+if [ -f $ROOT_DIR/../../scripts/toolset/common ]; then
 . $ROOT_DIR/../../scripts/toolset/common
 fi
 
