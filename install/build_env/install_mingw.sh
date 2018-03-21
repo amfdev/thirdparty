@@ -14,14 +14,15 @@ mkdir -p ${WORK_DIR} && cd ${WORK_DIR} || exit 1
 
 BINUTILS_SRC=binutils-2.30
 MINGW_SRC=mingw-w64
-GCC_SRC=gcc-5.5.0
+GCC_SRC=gcc-7.3.0
 
 if [ -z "$MINGW_DIR" ]; then
     MINGW_DIR=${ROOT_DIR}/../../libs/mingw-w64
-    rm -fR $MINGW_DIR
     mkdir -p $MINGW_DIR
     MINGW_DIR=`readlink -f ${MINGW_DIR}`
 fi
+rm -fR $MINGW_DIR/*
+
 
 #wget  --timestamping --no-check-certificate http://ftp.heikorichter.name/gnu/gcc/${GCC_SRC}/${GCC_SRC}.tar.xz || exit 1
 #wget  --timestamping --no-check-certificate http://ftp.heikorichter.name/gnu/binutils/${BINUTILS_SRC}.tar.xz || exit 1

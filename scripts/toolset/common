@@ -5,7 +5,14 @@
 TOOLSET=`basename "$0"`
 TOOLSET_DIR=$( dirname "${BASH_SOURCE[0]}")
 
-export MINGW_DIR=/usr/local/mingw-w64
+#MINGW_DIR=/usr/local/mingw-w64
+
+if [ -z "$MINGW_DIR" ]; then
+    MINGW_DIR=${TOOLSET_DIR}/../../libs/mingw-w64
+    mkdir -p $MINGW_DIR
+    MINGW_DIR=`readlink -f ${MINGW_DIR}`
+fi
+export MINGW_DIR
 
 
 export PATH="$TOOLSET_DIR/..:$PATH"

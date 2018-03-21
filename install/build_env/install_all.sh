@@ -13,25 +13,13 @@ rm -fR _build*
 chmod +x $ROOT_DIR/../../scripts/time.sh
 chmod +x ./*.sh
 
-time.sh ./install_deps.sh
-time.sh ./install_nasm.sh
-
-
-if [ -z "$MINGW_DIR" ]; then
-    MINGW_DIR=${ROOT_DIR}/mingw-w64
-    rm -fR $MINGW_DIR
-    mkdir -p $MINGW_DIR
-    MINGW_DIR=`readlink -f ${MINGW_DIR}`
-fi
-
-export MINGW_DIR
-
-
+#time.sh ./install_deps.sh
+#time.sh ./install_nasm.sh
 
 time.sh ./install_mingw.sh
-time.sh ./install_mingw-gdb.sh
-time.sh ./install_sdl2.sh
-time.sh ./install_x264.sh
-time.sh ./install_x265.sh
+#time.sh ./install_mingw-gdb.sh
+#time.sh ./install_sdl2.sh
+#time.sh ./install_x264.sh
+#time.sh ./install_x265.sh
 
 echo 'end time' `date` >> $LOG_FILE

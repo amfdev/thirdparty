@@ -9,6 +9,7 @@ ROOT_DIR=$PWD
 
 WORK_DIR=$ROOT_DIR/_build_mingw-gdb
 BUILD_GDB=1
+BUILD_GDB_WIN=1
 mkdir -p ${WORK_DIR} && cd ${WORK_DIR} || exit 1
 
 [ -z "$LOG_FILE" ] && LOG_FILE=$WORK_DIR/log.txt && echo 'time' > $LOG_FILE
@@ -40,6 +41,15 @@ for ARCH in x86_64 i686; do
         rm -fR build-gdb-${ARCH}
         mkdir -p build-gdb-${ARCH} && cd build-gdb-${ARCH} || exit 1
         ../configure --target=${TARGET} --prefix=${ARCH_DIR} --disable-multilib ${SYSTROOT} || exit 1
+        make -j${PROC_NUM} && make install || exit 1
+        cd ${WORK_DIR}
+    fi
+
+    if [ "$BUILD_GDB_WIN" == "1" ]; then
+        cd ${GDB_SRC}
+        rm -fR build-gdb-${ARCH}
+        mkdir -p build-gdb-${ARCH} && cd build-gdb-win-${ARCH} || exit 1
+        ../configure --host=${TARGET} --target=${TARGET} --prefix=${ARCH_DIR} --disable-multilib ${SYSTROOT} || exit 1
         make -j${PROC_NUM} && make install || exit 1
         cd ${WORK_DIR}
     fi
