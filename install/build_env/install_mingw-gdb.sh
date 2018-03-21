@@ -40,21 +40,22 @@ for ARCH in x86_64 i686; do
         cd ${GDB_SRC}
         rm -fR build-gdb-${ARCH}
         mkdir -p build-gdb-${ARCH} && cd build-gdb-${ARCH} || exit 1
-        ../configure --target=${TARGET} --prefix=${ARCH_DIR} --disable-multilib ${SYSTROOT} || exit 1
-        make -j${PROC_NUM} && make install || exit 1
-        cd ${WORK_DIR}
-    fi
-
-    if [ "$BUILD_GDB_WIN" == "1" ]; then
-        cd ${GDB_SRC}
-        rm -fR build-gdb-win-${ARCH}
-        mkdir -p build-gdb-win-${ARCH} && cd build-gdb-win-${ARCH} || exit 1
-        ../configure --host=${TARGET} --target=${TARGET} --prefix=${ARCH_DIR}/$TARGET/windows --disable-multilib ${SYSTROOT} || exit 1
+        ../configure --target=${TARGET} --prefix=${ARCH_DIR} || exit 1
         make -j${PROC_NUM} && make install || exit 1
         cd ${WORK_DIR}
     fi
 
     export PATH="${ARCH_DIR}/bin:$PATH"
+
+    if [ "$BUILD_GDB_WIN" == "1" ]; then
+        cd ${GDB_SRC}
+        rm -fR build-gdb-win-${ARCH}
+        mkdir -p build-gdb-win-${ARCH} && cd build-gdb-win-${ARCH} || exit 1
+        ../configure --host=${TARGET} --target=${TARGET} --prefix=${ARCH_DIR}/$TARGET/windows || exit 1
+        make -j${PROC_NUM} && make install || exit 1
+        cd ${WORK_DIR}
+    fi
+
 
     cd ${GDB_SRC}
     rm -fR build-gdbserver-${ARCH}
