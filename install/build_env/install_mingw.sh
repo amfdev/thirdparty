@@ -4,7 +4,20 @@ set -x
 
 ROOT_DIR=$PWD
 
+if [ -f $ROOT_DIR/../../scripts/toolset/common ]; 
+. $ROOT_DIR/../../scripts/toolset/common
+fi
+
 CURRENT_PATH=$PATH
+
+PROC_NUM=`nproc --all`
+
+if [ -z "$MINGW_DIR" ]; then
+    MINGW_DIR=${ROOT_DIR}/../../libs/mingw-w64
+    mkdir -p $MINGW_DIR
+    MINGW_DIR=`readlink -f ${MINGW_DIR}`
+fi
+rm -fR $MINGW_DIR/*
 
 WORK_DIR=$ROOT_DIR/_build_mingw
 rm -fR ${WORK_DIR}
@@ -16,25 +29,14 @@ BINUTILS_SRC=binutils-2.30
 MINGW_SRC=mingw-w64
 GCC_SRC=gcc-7.3.0
 
-if [ -z "$MINGW_DIR" ]; then
-    MINGW_DIR=${ROOT_DIR}/../../libs/mingw-w64
-    mkdir -p $MINGW_DIR
-    MINGW_DIR=`readlink -f ${MINGW_DIR}`
-fi
-rm -fR $MINGW_DIR/*
-
-
-#wget  --timestamping --no-check-certificate http://ftp.heikorichter.name/gnu/gcc/${GCC_SRC}/${GCC_SRC}.tar.xz || exit 1
-#wget  --timestamping --no-check-certificate http://ftp.heikorichter.name/gnu/binutils/${BINUTILS_SRC}.tar.xz || exit 1
-
 curl -k https://ftp.heikorichter.name/gnu/gcc/${GCC_SRC}/${GCC_SRC}.tar.xz --output ./${GCC_SRC}.tar.xz
 curl -k https://ftp.heikorichter.name/gnu/binutils/${BINUTILS_SRC}.tar.xz --output ./${BINUTILS_SRC}.tar.xz
 
-#git clone git://git.code.sf.net/p/mingw-w64/mingw-w64
-git clone https://github.com/amfdev/mingw-w64.git
-
 tar -xf ${GCC_SRC}.tar.xz
 tar -xf ${BINUTILS_SRC}.tar.xz
+
+#git clone git://git.code.sf.net/p/mingw-w64/mingw-w64
+git clone https://github.com/amfdev/mingw-w64.git
 
 BUILD_BINUTIL=1
 BUILD_MINGW_HEADERS=1
@@ -52,9 +54,6 @@ for ARCH in x86_64 i686; do
     SYSTROOT="--with-sysroot=${ARCH_DIR}"
     SYSTROOTEX="--with-sysroot=${ARCH_DIR}/${TARGET}"
     cd ${WORK_DIR}
-
-
-    #--enable-targets=${TARGET} 
 
     if [ "$BUILD_BINUTIL" == "1" ]; then
         cd ${BINUTILS_SRC}

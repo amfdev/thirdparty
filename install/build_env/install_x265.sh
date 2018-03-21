@@ -4,6 +4,10 @@ set -x
 
 ROOT_DIR=$PWD
 
+if [ -f $ROOT_DIR/../../scripts/toolset/common ]; 
+. $ROOT_DIR/../../scripts/toolset/common
+fi
+
 [ -z "$MINGW_DIR" ] && MINGW_DIR=`readlink -f ${ROOT_DIR}/../../libs/mingw-w64`
 [ ! -d "${MINGW_DIR}" ] && echo MINGW_DIR is not set due missing folder && exit 1
 
@@ -20,14 +24,11 @@ SOURCE_DIR=${WORK_DIR}/x265
 rm -fR ${SOURCE_DIR}
 git clone https://github.com/amfdev/x265.git ${SOURCE_DIR}
 
-
-
 for ARCH in x86_64 i686; do
     echo start $ARCH `date` >> $LOG_FILE
 
     ARCH_DIR=${MINGW_DIR}/toolchain-${ARCH}
     TARGET=${ARCH}-w64-mingw32
-    #REDIST_DIR=$ROOT_DIR/../../libs/x265/$TARGET
     BUILD_DIR=${WORK_DIR}/build-${ARCH}
 
     export PATH="${ARCH_DIR}/bin:$CURRENT_PATH"
