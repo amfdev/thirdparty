@@ -36,7 +36,7 @@ for ARCH in x86_64 i686; do
     rm -fR ${BUILD_DIR}
     mkdir -p ${BUILD_DIR} && cd ${BUILD_DIR} || exit 1
 
-    ${SOURCE_DIR}/configure --host=${TARGET} --prefix="$ARCH_DIR/$TARGET" --enable-shared=false
+    ${SOURCE_DIR}/configure --host=${TARGET} --prefix="$ARCH_DIR/$TARGET"
     make -j${PROC_NUM} && make install
 
 

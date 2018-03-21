@@ -44,9 +44,8 @@ for ARCH in x86_64 i686; do
                 -DCMAKE_CXX_FLAGS="-static-libgcc -static-libstdc++" \
                 -DCMAKE_C_FLAGS="-static-libgcc -static-libstdc++" \
                 -DCMAKE_INSTALL_PREFIX="$ARCH_DIR/$TARGET" \
-                -DENABLE_STATIC=ON \
-                -DENABLE_SHARED=ON \
-                -DENABLE_CLI=OFF\
+                -DENABLE_SHARED=OFF \
+                -DENABLE_CLI=OFF \
                 ${SOURCE_DIR}/source
     make -j${PROC_NUM}
     make install
