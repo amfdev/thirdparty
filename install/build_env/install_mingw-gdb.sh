@@ -47,9 +47,9 @@ for ARCH in x86_64 i686; do
 
     if [ "$BUILD_GDB_WIN" == "1" ]; then
         cd ${GDB_SRC}
-        rm -fR build-gdb-${ARCH}
-        mkdir -p build-gdb-${ARCH} && cd build-gdb-win-${ARCH} || exit 1
-        ../configure --host=${TARGET} --target=${TARGET} --prefix=${ARCH_DIR} --disable-multilib ${SYSTROOT} || exit 1
+        rm -fR build-gdb-win-${ARCH}
+        mkdir -p build-gdb-win-${ARCH} && cd build-gdb-win-${ARCH} || exit 1
+        ../configure --host=${TARGET} --target=${TARGET} --prefix=${ARCH_DIR}/$TARGET/windows --disable-multilib ${SYSTROOT} || exit 1
         make -j${PROC_NUM} && make install || exit 1
         cd ${WORK_DIR}
     fi
@@ -60,7 +60,7 @@ for ARCH in x86_64 i686; do
     rm -fR build-gdbserver-${ARCH}
     mkdir -p build-gdbserver-${ARCH} && cd build-gdbserver-${ARCH} || exit 1
     export LDFLAGS="-static-libgcc -static-libstdc++"
-    ../gdb/gdbserver/configure --host=${TARGET} --prefix=${ARCH_DIR}/$TARGET || exit 1
+    ../gdb/gdbserver/configure --host=${TARGET} --prefix=${ARCH_DIR}/$TARGET/windows || exit 1
     make -j${PROC_NUM} && make install || exit 1
     cd ${WORK_DIR}
 
