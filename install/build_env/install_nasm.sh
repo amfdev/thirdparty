@@ -9,7 +9,7 @@ WORK_DIR=$ROOT_DIR/_build_nasm
 mkdir -p ${WORK_DIR} && cd ${WORK_DIR} || exit 1
 
 #wget --timestamping http://www.nasm.us/pub/nasm/releasebuilds/${NASM_VER}/nasm-${NASM_VER}.tar.xz
-curl http://www.nasm.us/pub/nasm/releasebuilds/${NASM_VER}/nasm-${NASM_VER}.tar.xz --output ./nasm-${NASM_VER}.tar.xz
+curl -k http://www.nasm.us/pub/nasm/releasebuilds/${NASM_VER}/nasm-${NASM_VER}.tar.xz --output ./nasm-${NASM_VER}.tar.xz
 
 rm -fR nasm-${NASM_VER}
 
