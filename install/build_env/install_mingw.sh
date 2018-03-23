@@ -10,7 +10,7 @@ fi
 
 CURRENT_PATH=$PATH
 
-PROC_NUM=`nproc --all`
+[ -z "$PROC_NUM" ] && PROC_NUM=1
 
 if [ -z "$MINGW_DIR" ]; then
     MINGW_DIR=${ROOT_DIR}/../../libs/mingw-w64

@@ -13,7 +13,7 @@ fi
 
 CURRENT_PATH=$PATH
 
-PROC_NUM=`nproc --all`
+[ -z "$PROC_NUM" ] && PROC_NUM=1
 
 WORK_DIR=$ROOT_DIR/_build_mingw-x264
 mkdir -p ${WORK_DIR} && cd ${WORK_DIR} || exit 1

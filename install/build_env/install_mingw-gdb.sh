@@ -10,7 +10,7 @@ fi
 
 CURRENT_PATH=$PATH
 
-PROC_NUM=`nproc --all`
+[ -z "$PROC_NUM" ] && PROC_NUM=1
 
 [ -z "$MINGW_DIR" ] && MINGW_DIR=`readlink -f ${ROOT_DIR}/../../libs/mingw-w64`
 [ ! -d "${MINGW_DIR}" ] && echo MINGW_DIR is not set due missing folder && exit 1
