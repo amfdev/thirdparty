@@ -5,17 +5,32 @@
 TOOLSET=`basename "$0"`
 TOOLSET_DIR=$( dirname "${BASH_SOURCE[0]}")
 
-MINGW_DIR=/usr/local/mingw-w64
+# to build and use in relative path
+#MINGW_DIR=${TOOLSET_DIR}/../../libs/mingw-w64
+#mkdir -p $MINGW_DIR
+#MINGW_DIR=`readlink -f ${MINGW_DIR}`
 
 if [ -z "$MINGW_DIR" ]; then
-    MINGW_DIR=${TOOLSET_DIR}/../../libs/mingw-w64
-    mkdir -p $MINGW_DIR
-    MINGW_DIR=`readlink -f ${MINGW_DIR}`
+    MINGW_DIR=/usr/local/mingw-w64
 fi
 export MINGW_DIR
 
 
 export PATH="$TOOLSET_DIR/..:$PATH"
-export NPROC=`nproc --all`
+
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    export PROC_NUM=`nproc --all`
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    export PROC_NUM=`sysctl -n hw.ncpu`
+elif [[ "$OSTYPE" == "cygwin" ]]; then
+    export PROC_NUM=`nproc --all`
+elif [[ "$OSTYPE" == "msys" ]]; then
+    export PROC_NUM=`nproc --all`
+else
+    echo unsupported operating system && exit 1
+fi
+
+export NPROC=$PROC_NUM
+
 
 [ -z "$LOG_FILE" ] && LOG_FILE=$PWD/log.txt && export LOG_FILE
