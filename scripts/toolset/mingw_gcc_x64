@@ -6,6 +6,7 @@ PLATFORM=mingw32
 COMPILER=gcc
 
 ARCH=x86_64
+ARCH_LIB=x86_64
 ARCH_DIR=${MINGW_DIR}/toolchain-${ARCH}
 TARGET=${ARCH}-w64-mingw32
 
