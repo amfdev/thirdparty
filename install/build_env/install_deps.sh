@@ -13,5 +13,10 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     sudo apt install -y pkg-config
     sudo apt install -y cmake
     sudo apt install -y mc
+
+    sudo apt install -y autoconf
+    sudo apt install -y python
+    sudo apt install -y zlib1g-dev
+    sudo apt install -y libtool-bin
 fi
 
