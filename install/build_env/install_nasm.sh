@@ -27,7 +27,7 @@ NASM_VER=2.13.03
 SOURCE_DIR=${WORK_DIR}/nasm-${NASM_VER}
 rm -fR ${SOURCE_DIR}
 
-curl -k http://www.nasm.us/pub/nasm/releasebuilds/${NASM_VER}/nasm-${NASM_VER}.tar.xz --output ./nasm-${NASM_VER}.tar.xz
+curl -k https://www.nasm.us/pub/nasm/releasebuilds/${NASM_VER}/nasm-${NASM_VER}.tar.xz --output ./nasm-${NASM_VER}.tar.xz
 tar -xvf nasm-${NASM_VER}.tar.xz
 
 for ARCH in x86_64 i686; do
