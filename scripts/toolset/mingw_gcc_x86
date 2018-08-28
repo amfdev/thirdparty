@@ -7,7 +7,7 @@ COMPILER=gcc
 
 ARCH=i686
 ARCH_LIB=x86
-ARCH_DIR=${MINGW_DIR}/toolchain-${ARCH}
+ARCH_DIR=${MINGW_DIR}/mingw-w64-${ARCH}
 TARGET=${ARCH}-w64-mingw32
 
 export PKG_CONFIG_PATH=${ARCH_DIR}/${TARGET}/lib/pkgconfig:${PKG_CONFIG_PATH}

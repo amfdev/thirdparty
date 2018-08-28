@@ -33,7 +33,7 @@ tar -xvf nasm-${NASM_VER}.tar.xz
 for ARCH in x86_64 i686; do
     echo start $ARCH `date` >> $LOG_FILE
 
-    ARCH_DIR=${MINGW_DIR}/toolchain-${ARCH}
+    ARCH_DIR=${MINGW_DIR}/mingw-w64-${ARCH}
     TARGET=${ARCH}-w64-mingw32
     BUILD_DIR=${WORK_DIR}/build-${ARCH}
 

@@ -12,6 +12,7 @@ TOOLSET_DIR=$( dirname "${BASH_SOURCE[0]}")
 
 if [ -z "$MINGW_DIR" ]; then
     MINGW_DIR=/usr/local/mingw-w64
+    MINGW_DIR=~/toolchains/mingw-w64-5.0.3-gcc-7.3.0
 fi
 export MINGW_DIR
 
