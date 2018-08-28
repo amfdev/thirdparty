@@ -29,8 +29,8 @@ BINUTILS_SRC=binutils-2.30
 MINGW_SRC=mingw-w64
 GCC_SRC=gcc-7.3.0
 
-curl -k https://ftp.heikorichter.name/gnu/gcc/${GCC_SRC}/${GCC_SRC}.tar.xz --output ./${GCC_SRC}.tar.xz
-curl -k https://ftp.heikorichter.name/gnu/binutils/${BINUTILS_SRC}.tar.xz --output ./${BINUTILS_SRC}.tar.xz
+curl -k https://ftp.gnu.org/gnu/gcc/${GCC_SRC}/${GCC_SRC}.tar.xz --output ./${GCC_SRC}.tar.xz
+curl -k https://ftp.gnu.org/gnu/binutils/${BINUTILS_SRC}.tar.xz --output ./${BINUTILS_SRC}.tar.xz
 
 tar -xf ${GCC_SRC}.tar.xz
 tar -xf ${BINUTILS_SRC}.tar.xz
