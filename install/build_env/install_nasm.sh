@@ -42,7 +42,7 @@ for ARCH in x86_64 i686; do
 
     cp -r ${SOURCE_DIR}/* .
     ${SOURCE_DIR}/configure --prefix="$ARCH_DIR"
-    make -j${PROC_NUM} && sudo make install || exit 1
+    make -j${PROC_NUM} && make install || exit 1
 
     echo end $ARCH `date` >> $LOG_FILE
 done
