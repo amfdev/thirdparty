@@ -42,7 +42,7 @@ function download_url {  # download_url $VERBOSE $FILE $URLS
     fi
     FAILED=()
     for I in "${!URLS[@]}"; do
-        if ! curl --head -Lf --connect-timeout 30 "${URLS[I]}" >/dev/null 2>&1; then
+        if ! curl --insecure --head -Lf --connect-timeout 30 "${URLS[I]}" >/dev/null 2>&1; then
             FAILED+=("${URLS[I]}")
             if [[ "$(( ${I} + 1 ))" -lt "${#URLS[@]}" ]]; then
                 continue
@@ -59,7 +59,7 @@ function download_url {  # download_url $VERBOSE $FILE $URLS
         if [[ "${VERBOSE:-}" == true ]]; then
             echo "curl -Lf --connect-timeout 30 \"${URLS[I]}\" -o \"${FILE}\""
         fi
-        if ! curl -Lf --connect-timeout 30 "${URLS[I]}" -o "${FILE}" >/dev/null 2>&1; then
+        if ! curl --insecure -Lf --connect-timeout 30 "${URLS[I]}" -o "${FILE}" >/dev/null 2>&1; then
             FAILED+=("${URLS[I]}")
             if [[ "$(( ${I} + 1 ))" -lt "${#URLS[@]}" ]]; then
                 continue
@@ -500,3 +500,4 @@ wait "${PID}" || CODE=$?
 trap - EXIT INT TERM
 
 exit "${CODE:-0}"
+
